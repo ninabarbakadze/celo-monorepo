@@ -62,15 +62,18 @@ export async function destroyKongAndKonga() {
   await execCmdWithExitOnFailure(`kubectl delete ns ${kongNamespace} ${kongaNamespace}`)
 }
 
+// @ts-ignore
 async function kongHelmParamenters(celoEnv: string) {
+  // Using value from helm-charts/konga/values-clabs.yaml
+  return []
   // GCP Internal infra ips
-  let trustedIPs = '130.211.0.0/22,35.191.0.0/16'
-  const fornoPublicGlobalIp = await retrieveIPAddress(`${celoEnv}-forno-global-address`, 'global')
-  trustedIPs = `${trustedIPs},${fornoPublicGlobalIp}/32`
-  return [
-    `--set kong.extraEnvVars[0].name=KONG_TRUSTED_IPS`,
-    `--set kong.extraEnvVars[0].value='${trustedIPs.replace(/,/g, '\\,')}'`,
-  ]
+  // let trustedIPs = '130.211.0.0/22,35.191.0.0/16'
+  // const fornoPublicGlobalIp = await retrieveIPAddress(`${celoEnv}-forno-global-address`, 'global')
+  // trustedIPs = `${trustedIPs},${fornoPublicGlobalIp}/32`
+  // return [
+  //   `--set kong.extraEnvVars[0].name=KONG_TRUSTED_IPS`,
+  //   `--set kong.extraEnvVars[0].value='${trustedIPs.replace(/,/g, '\\,')}'`,
+  // ]
 }
 
 function kongaHelmParamenters(celoEnv: string) {

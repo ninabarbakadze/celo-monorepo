@@ -7,7 +7,7 @@ ingressController:
 
 postgresql:
   postgresqlPassword: kong
-  postgresqlMaxConnections: "500"
+  postgresqlMaxConnections: "1000"
 
 service:
   exposeAdmin: true
@@ -37,4 +37,6 @@ kong:
   - name: KONG_ADMIN_ACCESS_LOG
     value: /dev/stdout geth
   - name: KONG_NGINX_HTTP_LOG_FORMAT
-    value: geth '$remote_addr - $remote_user [$time_local] "$request" $status  $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for" "$remote_addr"'
+    value: geth escape=json '$remote_addr - $remote_user [$time_local] "$request" $status  $body_bytes_sent "$http_referer" "$http_user_agent" "$http_x_forwarded_for" "$remote_addr" $request_body'
+  - name: KONG_PG_MAX_CONCURRENT_QUERIES
+    value: "400"

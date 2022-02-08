@@ -35,7 +35,7 @@ contract Exchange is
   event MinimumReportsSet(uint256 minimumReports);
   event StableTokenSet(address indexed stable);
   event SpreadSet(uint256 spread);
-  event StableBucketFractionCapSet(uint256 stableBucketFractionCap);
+  event StableBucketMaxFraction(uint256 stableBucketFractionCap);
   event ReserveFractionSet(uint256 reserveFraction);
   event BucketsUpdated(uint256 goldBucket, uint256 stableBucket);
   event MinSupplyForStableBucketCapSet(uint256 minSupplyForStableBucketCap);
@@ -305,7 +305,7 @@ contract Exchange is
       "bucket fraction must be smaller than 1"
     );
     require(newStableBucketFractionCap > 0, "bucket fraction must be greather than 0");
-    emit StableBucketFractionCapSet(newStableBucketFractionCap);
+    emit StableBucketMaxFraction(newStableBucketFractionCap);
   }
 
   /**
